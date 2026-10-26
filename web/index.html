@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MDM to OBJ</title>
+  <meta name="description" content="Convert BINKIES-MDM 3D models to OBJ for Fusion 360, in your browser.">
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>MDM to OBJ</h1>
+      <p class="lede">Convert a BINKIES-MDM model to Wavefront OBJ for Fusion 360. Files are processed in your browser and never uploaded.</p>
+    </header>
+
+    <section aria-labelledby="files-heading">
+      <h2 id="files-heading"><span class="step">1</span> Pick the model files</h2>
+      <label class="drop" id="drop">
+        <input type="file" id="file-input" multiple>
+        <span class="drop-title">Choose files or drop them here</span>
+        <span class="drop-hint">A model is two files: <code>geometry.mdm.br</code> and <code>scene.mdm.br</code>. Select both at once, or one at a time.</span>
+      </label>
+      <ul class="files" id="files">
+        <li data-kind="geometry"><span class="badge">Geometry</span><span class="file-state">Not loaded</span></li>
+        <li data-kind="scene"><span class="badge">Scene</span><span class="file-state">Not loaded</span></li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="options-heading">
+      <h2 id="options-heading"><span class="step">2</span> Choose options</h2>
+      <fieldset id="options" disabled>
+        <div class="field">
+          <label for="name">File name</label>
+          <input type="text" id="name" value="model" spellcheck="false" autocomplete="off">
+          <span class="hint">The ZIP holds <code><span class="name-echo">model</span>.obj</code> and <code><span class="name-echo">model</span>.mtl</code>.</span>
+        </div>
+        <div class="field">
+          <label for="units">Units</label>
+          <select id="units">
+            <option value="1000" selected>Millimetres (mm)</option>
+            <option value="100">Centimetres (cm)</option>
+            <option value="1">Metres (m)</option>
+          </select>
+          <span class="hint">Pick the same units in Fusion's Insert Mesh dialog.</span>
+        </div>
+        <div class="field">
+          <label for="variant">Color variant</label>
+          <select id="variant">
+            <option value="-1">None (default materials)</option>
+          </select>
+        </div>
+        <label class="check"><input type="checkbox" id="decals"> Include decals <span class="hint">(logos and similar)</span></label>
+        <label class="check"><input type="checkbox" id="texture-maps"> Reference texture files in the MTL <span class="hint">(the images are not in the MDM files)</span></label>
+      </fieldset>
+    </section>
+
+    <section aria-labelledby="export-heading">
+      <h2 id="export-heading"><span class="step">3</span> Export</h2>
+      <button type="button" id="export" disabled>Export ZIP</button>
+      <p class="status" id="status" role="status" aria-live="polite"></p>
+    </section>
+  </main>
+</body>
+</html>
